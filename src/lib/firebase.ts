@@ -142,13 +142,20 @@ export function subscribeToUserProfile(userId: number, callback: (profile: UserP
   })
 }
 
+/**
+ * Profil maydonlarini yangilaydi.
+ *
+ * XATONI YUTMAYDI — ataylab. Ilgari bu funksiya har qanday xatoni
+ * catch qilib, hech narsa qaytarmasdi: chaqiruvchi yozuv muvaffaqiyatli
+ * deb o'ylab "saqlandi" xabarini ko'rsatardi, aslida esa bazaga hech
+ * narsa tushmagan bo'lardi. Ruxsat yo'qligi yoki seans uzilgani shu
+ * tariqa umuman ko'rinmay qolardi.
+ *
+ * Chaqiruvchi try/catch bilan o'rab, foydalanuvchiga aniq xabar berishi shart.
+ */
 export async function updateUserProfile(userId: number, data: Partial<UserProfile>) {
-  try {
-    const userRef = doc(db, 'users', String(userId))
-    await updateDoc(userRef, data)
-  } catch (error) {
-    console.error("Error updating user profile:", error)
-  }
+  const userRef = doc(db, 'users', String(userId))
+  await updateDoc(userRef, data)
 }
 
 // Subscribe to User Orders

@@ -10,18 +10,20 @@ export function OrderImages({ products }: { products: Item[] }) {
       {products.slice(0, 3).map((item, i) => (
         <div
           key={item.cartKey ?? `${item.product.id}-${i}`}
-          className="grid size-14 place-items-center overflow-hidden rounded-xl border sm:size-16"
+          className="relative size-14 shrink-0 overflow-hidden rounded-xl border sm:size-16"
           style={{ borderColor: 'var(--line)', background: 'var(--surface-2)' }}
         >
           {item.product.images?.[0] ? (
             <img
-              className="size-full object-contain p-1"
+              className="absolute inset-0 size-full object-contain p-1"
               src={getImageUrl(item.product.images[0])}
               alt={item.product.name}
               loading="lazy"
             />
           ) : (
-            <ShoppingBag size={18} style={{ color: 'var(--faint)' }} />
+            <span className="absolute inset-0 grid place-items-center">
+              <ShoppingBag size={18} style={{ color: 'var(--faint)' }} />
+            </span>
           )}
         </div>
       ))}

@@ -127,19 +127,29 @@ export function ProductDetailPage({
             {product.discount}
           </span>
         )}
+        {/*
+          * Rasm ABSOLYUT joylashtirilgan, `place-items-center` grid ichida emas.
+          * Grid markazlashtirilganda element cho'zilmaydi va bolaning
+          * `height: 100%` foizi hal bo'lmay `auto` ga tushadi — bo'yi baland
+          * rasm konteynerdan oshib ketib, `overflow-hidden` uni pastidan
+          * kesib qo'yadi. `inset-0` esa aniq quti beradi, `object-contain`
+          * shu qutiga to'liq sig'diradi.
+          */}
         <div
-          className="mx-auto grid h-[280px] w-full place-items-center overflow-hidden rounded-2xl sm:h-[380px]"
+          className="relative mx-auto h-[280px] w-full overflow-hidden rounded-2xl sm:h-[380px]"
           style={{ background: 'var(--surface-2)', opacity: soldOut ? 0.55 : 1 }}
         >
           {images[activeImage] ? (
             <img
-              className="size-full object-contain p-4"
+              className="absolute inset-0 size-full object-contain p-4"
               src={getImageUrl(images[activeImage])}
               alt={product.name}
               decoding="async"
             />
           ) : (
-            <ShoppingCart size={56} style={{ color: 'var(--faint)' }} />
+            <span className="absolute inset-0 grid place-items-center">
+              <ShoppingCart size={56} style={{ color: 'var(--faint)' }} />
+            </span>
           )}
         </div>
         {images.length > 1 && (

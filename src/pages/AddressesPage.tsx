@@ -76,7 +76,17 @@ export function AddressesPage({ profile, onBack, onNotify }: Props) {
     }
 
     const uid = auth.currentUser?.uid
-    if (!uid) return
+    if (!uid) {
+      // Firebase seansi yo'q. Ilgari bu yerda jim `return` turardi —
+      // tugma bosilardi-yu hech narsa bo'lmasdi va sabab ko'rinmasdi.
+      onNotify(t('error.notSignedIn'))
+      return
+    }
+    if (!profile) {
+      // Profil hali o'qilmagan: hozir yozsak mavjud manzillar o'chib ketadi
+      onNotify(t('common.loading'))
+      return
+    }
 
     setLoading(true)
     try {
@@ -93,6 +103,9 @@ export function AddressesPage({ profile, onBack, onNotify }: Props) {
       setLocation(null)
       hapticSuccess()
       onNotify(t('address.saved'))
+    } catch (error) {
+      console.error('[Manzil] saqlanmadi:', error)
+      onNotify(t('error.saveFailed'))
     } finally {
       setLoading(false)
     }
@@ -100,10 +113,18 @@ export function AddressesPage({ profile, onBack, onNotify }: Props) {
 
   const handleDeleteAddress = async (id: string) => {
     const uid = auth.currentUser?.uid
-    if (!uid) return
-    await updateUserProfile(Number(uid), { addresses: addresses.filter((a) => a.id !== id) })
-    hapticFeedback('light')
-    onNotify(t('address.deleted'))
+    if (!uid) {
+      onNotify(t('error.notSignedIn'))
+      return
+    }
+    try {
+      await updateUserProfile(Number(uid), { addresses: addresses.filter((a) => a.id !== id) })
+      hapticFeedback('light')
+      onNotify(t('address.deleted'))
+    } catch (error) {
+      console.error('[Manzil] o\'chirilmadi:', error)
+      onNotify(t('error.saveFailed'))
+    }
   }
 
   return (

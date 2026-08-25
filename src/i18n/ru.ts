@@ -259,6 +259,11 @@ export const ru: Record<TranslationKey, string> = {
   'notifications.empty': 'Уведомлений нет',
   'notifications.emptyText': 'Пока для вас нет сообщений.',
 
+  // ── Ошибки ──
+  'error.notSignedIn':
+    'Не удалось подключиться к аккаунту. Закройте приложение и откройте снова через бота.',
+  'error.saveFailed': 'Не удалось сохранить. Проверьте интернет и попробуйте снова.',
+
   // ── Telegram ──
   'gate.title': 'Откройте через Telegram',
   'gate.text':

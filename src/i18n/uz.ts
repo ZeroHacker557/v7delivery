@@ -265,6 +265,11 @@ export const uz = {
   'notifications.empty': "Bildirishnomalar yo'q",
   'notifications.emptyText': 'Hozircha sizga hech qanday xabar kelmagan.',
 
+  // ── Xatolar ──
+  'error.notSignedIn':
+    "Hisobingizga ulanib bo'lmadi. Ilovani yopib, bot orqali qaytadan oching.",
+  'error.saveFailed': "Saqlab bo'lmadi. Internetni tekshirib, qayta urinib ko'ring.",
+
   // ── Telegram to'sig'i ──
   'gate.title': 'Telegram orqali oching',
   'gate.text':

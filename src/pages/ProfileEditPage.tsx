@@ -43,6 +43,9 @@ export function ProfileEditPage({ profile, onBack, onNotify }: Props) {
       hapticSuccess()
       onNotify(t('profile.saved'))
       onBack()
+    } catch (error) {
+      console.error('[Profil] saqlanmadi:', error)
+      onNotify(t('error.saveFailed'))
     } finally {
       setLoading(false)
     }
