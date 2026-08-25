@@ -12,7 +12,7 @@ export const LANGUAGES: { code: Language; label: TranslationKey; native: string 
 
 export const DICTIONARIES: Record<Language, Record<TranslationKey, string>> = { uz, ru }
 
-export const STORAGE_KEY = 'shopOnlineLang'
+export const STORAGE_KEY = 'v7ShopLang'
 
 /** Telegram tilidan boshlang'ich tanlov: ruscha bo'lsa ru, aks holda uz. */
 export function detectLanguage(): Language {

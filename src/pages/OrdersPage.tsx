@@ -4,12 +4,12 @@ import { formatPrice } from '../data'
 import { getImageUrl, openBotDeepLink } from '../utils/telegram'
 import { formatOrderDate } from '../utils/date'
 import { apiPost, ApiError } from '../lib/api'
+import { BRAND } from '../config/brand'
 import { hapticSuccess, hapticError } from '../utils/telegram'
 import { PageHeader } from '../components/layout/PageHeader'
 import { useT, type TranslationKey } from '../i18n'
 import type { Order, OrderStatus } from '../types/domain'
 
-const BOT_USERNAME = 'ecommercy_test_bot'
 
 const TABS: { id: string; labelKey: TranslationKey }[] = [
   { id: 'all', labelKey: 'orders.tabAll' },
@@ -221,7 +221,7 @@ export function OrdersPage({
 
               {payInfo?.needsAction && (
                 <button
-                  onClick={() => openBotDeepLink(BOT_USERNAME, `receipt_${order.id}`)}
+                  onClick={() => openBotDeepLink(BRAND.botUsername, `receipt_${order.id}`)}
                   className="flex w-full items-center justify-center gap-2 rounded-2xl py-3 text-sm font-bold transition active:scale-95"
                   style={{
                     background: payInfo.bg,

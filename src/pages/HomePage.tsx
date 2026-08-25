@@ -1,9 +1,10 @@
 import type { LucideIcon } from 'lucide-react'
 import {
-  ArrowRight, Bell, CircleHelp, Heart, Package, Search,
-  ShieldCheck, ShoppingBag, Truck,
+  ArrowRight, Bell, CircleHelp, CupSoda, Heart, Leaf, Search,
+  ShieldCheck, Truck,
 } from 'lucide-react'
-import heroImg from '../images/hero-img.webp'
+import heroCan from '../images/hero-can.webp'
+import { BrandLogo } from '../components/brand/BrandLogo'
 import { ProductCard } from '../components/product/ProductCard'
 import { ProductRowSkeleton } from '../components/ui/ProductCardSkeleton'
 import { CartButton } from '../components/ui/CartButton'
@@ -16,7 +17,7 @@ const benefits: [LucideIcon, TranslationKey, TranslationKey][] = [
   [Truck, 'benefit.delivery', 'benefit.deliverySub'],
   [ShieldCheck, 'benefit.payment', 'benefit.paymentSub'],
   [CircleHelp, 'benefit.support', 'benefit.supportSub'],
-  [Package, 'benefit.return', 'benefit.returnSub'],
+  [Leaf, 'benefit.natural', 'benefit.naturalSub'],
 ]
 
 type Props = ProductActions & {
@@ -42,17 +43,7 @@ export function HomePage({
     <>
       {/* Header */}
       <header className="flex items-center justify-between px-5 pt-7 sm:px-10">
-        <div className="flex items-center gap-2">
-          <span
-            className="grid size-11 place-items-center rounded-xl"
-            style={{ background: 'var(--brand)', color: 'var(--brand-ink)' }}
-          >
-            <ShoppingBag />
-          </span>
-          <b className="text-2xl tracking-tight sm:text-3xl" style={{ color: 'var(--ink)' }}>
-            Shop<span style={{ color: 'var(--brand)' }}>Online</span>
-          </b>
-        </div>
+        <BrandLogo size={44} />
         <div className="flex items-center gap-1">
           <IconButton label={t('notifications.title')} onClick={() => onNavigate('notifications')}>
             <span className="relative">
@@ -84,38 +75,44 @@ export function HomePage({
         </button>
       </section>
 
-      {/* Hero */}
+      {/* Hero — Lemon Mint bankasi to'q yashil sahnada */}
       <section className="mx-5 mt-6 sm:mx-10">
         <div className="hero-banner">
-          <div className="relative min-h-[250px] p-6 sm:min-h-[330px] sm:p-9">
-            <div className="relative z-10 max-w-[62%] sm:max-w-[360px]">
+          <div className="relative min-h-[260px] p-6 sm:min-h-[340px] sm:p-9">
+            <span className="hero-glow" aria-hidden="true" />
+
+            <div className="relative z-10 max-w-[58%] sm:max-w-[380px]">
               <span
                 className="inline-block rounded-full px-3 py-1 text-xs font-bold"
-                style={{ background: 'var(--surface)', color: 'var(--brand)' }}
+                style={{ background: '#ffffff', color: 'var(--brand-strong)' }}
               >
                 {t('home.heroBadge')}
               </span>
               <h2
-                className="mt-4 text-[1.6rem] font-extrabold leading-tight sm:text-4xl"
-                style={{ color: 'var(--ink)', textWrap: 'balance' }}
+                className="wordmark mt-4 text-[1.5rem] leading-[1.15] sm:text-[2.4rem]"
+                style={{ color: '#ffffff', textWrap: 'balance' }}
               >
                 {t('home.heroTitle')}
               </h2>
-              <p className="mt-3 text-sm sm:text-base" style={{ color: 'var(--ink-2)' }}>
+              <p className="mt-3 text-sm sm:text-base" style={{ color: 'rgb(255 255 255 / 0.78)' }}>
                 {t('home.heroSubtitle')}
               </p>
               <button
                 onClick={() => onNavigate('catalog')}
-                className="btn-primary mt-5 rounded-full px-5 py-3"
+                className="mt-5 flex w-fit items-center gap-2 whitespace-nowrap rounded-full px-5 py-3 font-bold transition active:scale-[0.98]"
+                style={{ background: '#ffffff', color: 'var(--brand-strong)' }}
               >
                 {t('home.heroCta')} <ArrowRight size={18} />
               </button>
             </div>
+
             <img
-              className="pointer-events-none absolute top-1/2 right-0 h-[85%] w-[42%] -translate-y-1/2 object-contain object-center sm:h-[92%] sm:w-[46%]"
-              src={heroImg}
+              className="pointer-events-none absolute top-1/2 right-[-4%] h-[112%] w-[52%] -translate-y-1/2 object-contain object-center sm:right-2 sm:h-[118%] sm:w-[46%]"
+              src={heroCan}
               alt=""
               aria-hidden="true"
+              decoding="async"
+              fetchPriority="high"
             />
           </div>
         </div>
@@ -201,7 +198,7 @@ export function HomePage({
               className="mx-auto grid size-16 place-items-center rounded-full"
               style={{ background: 'var(--brand-soft)', color: 'var(--brand)' }}
             >
-              <ShoppingBag size={30} />
+              <CupSoda size={30} />
             </span>
             <p className="mt-4 font-bold" style={{ color: 'var(--ink-2)' }}>{t('home.emptyTitle')}</p>
             <p className="mt-2 text-sm" style={{ color: 'var(--muted)' }}>{t('home.emptyText')}</p>

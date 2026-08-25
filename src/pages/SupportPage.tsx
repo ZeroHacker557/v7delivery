@@ -4,12 +4,14 @@ import {
   Mail,
   MessageCircle,
   Phone,
+  MapPin,
   ArrowLeft,
   Headphones,
   Clock,
   CheckCircle2,
 } from 'lucide-react'
 import { useState } from 'react'
+import { BRAND } from '../config/brand'
 import { useT } from '../i18n'
 
 type Props = {
@@ -18,20 +20,28 @@ type Props = {
 
 const faqs_uz = [
   {
-    q: "Buyurtmamni qanday kuzatib borish mumkin?",
-    a: "Profil sahifasidagi «Buyurtmalar tarixi» bo'limiga o'ting. U yerda barcha buyurtmalaringizning holati real vaqtda ko'rinib turadi.",
+    q: "V7 ichimliklari nimasi bilan ajralib turadi?",
+    a: "V7 — 100% tabiiy ta'mlardan tayyorlangan gazlangan ichimlik. Sun'iy bo'yoq ishlatilmaydi, Vitamin Sparkling liniyasi esa vitaminlar bilan qo'shimcha boyitilgan. Har bir banka 300 ml.",
+  },
+  {
+    q: "Qanday liniya va ta'mlar bor?",
+    a: "Uchta liniya: Vitamin Sparkling (Limon-Yalpiz, Anor, Chernika, Pina Kolada), Super Soda (Kola va Diet Kola — kofeinsiz) hamda Flavored Malt (Ananas, Olma). Jami 9 xil ta'm.",
+  },
+  {
+    q: "Buyurtma qancha vaqtda yetkaziladi?",
+    a: "Toshkent bo'ylab 24 soat ichida. Buyurtma holati o'zgarganda sizga avtomatik bildirishnoma keladi.",
+  },
+  {
+    q: "Eng kam buyurtma miqdori bormi?",
+    a: "Yo'q, hatto bitta bankadan ham buyurtma berishingiz mumkin. Katta summadagi buyurtmalar bepul yetkaziladi — summa rasmiylashtirish sahifasida ko'rsatiladi.",
   },
   {
     q: "To'lov qanday amalga oshiriladi?",
-    a: "Naqd pul (yetkazishda) yoki karta orqali o'tkazma usulida to'lashingiz mumkin. Karta orqali to'lashda chekni botga yuboring — admin tasdiqlaydi.",
+    a: "Naqd pul (yetkazishda) yoki karta orqali o'tkazma. Karta orqali to'lasangiz, chekni botga yuboring — operator tekshirib tasdiqlaydi.",
   },
   {
-    q: "Mahsulotni qaytarish mumkinmi?",
-    a: "Ha, mahsulotni olgan kundan boshlab 14 kun ichida qaytarish mumkin. Buning uchun biz bilan bog'laning.",
-  },
-  {
-    q: "Yetkazib berish qancha vaqt oladi?",
-    a: "Odatda 1–3 ish kuni. Buyurtma holati o'zgarganda siz avtomatik bildirishnoma olasiz.",
+    q: "Ulgurji xarid yoki hamkorlik mumkinmi?",
+    a: "Ha. Do'kon, kafe va distribyutorlar uchun alohida shartlar bor — quyidagi raqam yoki Telegram orqali bog'laning.",
   },
   {
     q: "Promo kod qanday ishlatiladi?",
@@ -41,20 +51,28 @@ const faqs_uz = [
 
 const faqs_ru = [
   {
-    q: "Как отслеживать мой заказ?",
-    a: "Перейдите в раздел «История заказов» в профиле. Там отображается статус всех ваших заказов в реальном времени.",
+    q: "Чем отличаются напитки V7?",
+    a: "V7 — газированный напиток на 100% натуральных вкусах. Без искусственных красителей, а линейка Vitamin Sparkling дополнительно обогащена витаминами. Объём банки — 300 мл.",
+  },
+  {
+    q: "Какие линейки и вкусы есть?",
+    a: "Три линейки: Vitamin Sparkling (Лимон-Мята, Гранат, Черника, Пина Колада), Super Soda (Кола и Диет Кола — без кофеина) и Flavored Malt (Ананас, Яблоко). Всего 9 вкусов.",
+  },
+  {
+    q: "Как быстро доставляют заказ?",
+    a: "По Ташкенту — в течение 24 часов. При изменении статуса заказа вы получите уведомление.",
+  },
+  {
+    q: "Есть ли минимальный заказ?",
+    a: "Нет, заказать можно даже одну банку. Крупные заказы доставляются бесплатно — сумма указана на странице оформления.",
   },
   {
     q: "Как осуществляется оплата?",
-    a: "Вы можете оплатить наличными при доставке или переводом на карту. При оплате картой отправьте чек боту — администратор подтвердит.",
+    a: "Наличными при доставке или переводом на карту. При оплате картой отправьте чек боту — оператор проверит и подтвердит.",
   },
   {
-    q: "Можно ли вернуть товар?",
-    a: "Да, в течение 14 дней с момента получения. Для оформления возврата свяжитесь с нами.",
-  },
-  {
-    q: "Сколько времени занимает доставка?",
-    a: "Обычно 1–3 рабочих дня. При изменении статуса заказа вы получите уведомление.",
+    q: "Возможна ли оптовая закупка или сотрудничество?",
+    a: "Да. Для магазинов, кафе и дистрибьюторов действуют отдельные условия — свяжитесь по телефону или в Telegram ниже.",
   },
   {
     q: "Как использовать промокод?",
@@ -95,7 +113,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 export function SupportPage({ onBack }: Props) {
   const t = useT()
   // detect lang from localStorage
-  const lang = (localStorage.getItem('shopOnlineLang') ?? 'uz') as 'uz' | 'ru'
+  const lang = (localStorage.getItem('v7ShopLang') ?? 'uz') as 'uz' | 'ru'
   const faqs = lang === 'ru' ? faqs_ru : faqs_uz
 
   const contacts = [
@@ -103,41 +121,41 @@ export function SupportPage({ onBack }: Props) {
       id: 'phone',
       icon: Phone,
       label: lang === 'ru' ? 'Телефон' : 'Telefon',
-      value: '+998 97 400 98 77',
-      href: 'tel:+998974009877',
-      color: '#22c55e',
-      bg: 'rgba(34,197,94,0.12)',
+      value: BRAND.phone,
+      href: BRAND.phoneHref,
+      color: 'var(--brand)',
+      bg: 'var(--brand-soft)',
     },
     {
       id: 'telegram',
       icon: MessageCircle,
       label: 'Telegram',
-      value: '@for_name',
-      href: 'https://t.me/for_name',
+      value: BRAND.telegram,
+      href: BRAND.telegramHref,
       color: '#0ea5e9',
       bg: 'rgba(14,165,233,0.12)',
     },
     {
       id: 'email',
       icon: Mail,
-      label: 'Gmail',
-      value: 'abubakrdeveloper@gmail.com',
-      href: 'mailto:abubakrdeveloper@gmail.com',
-      color: 'var(--brand)',
-      bg: 'var(--brand-soft)',
+      label: 'Email',
+      value: BRAND.email,
+      href: `mailto:${BRAND.email}`,
+      color: 'var(--gold)',
+      bg: 'var(--gold-soft)',
     },
   ]
 
   const features = lang === 'ru'
     ? [
-        { icon: Clock, text: 'Поддержка 24/7' },
+        { icon: Clock, text: `Приём заказов ${BRAND.workHours}` },
         { icon: CheckCircle2, text: 'Быстрый ответ' },
-        { icon: Headphones, text: 'Профессиональная помощь' },
+        { icon: MapPin, text: BRAND.city },
       ]
     : [
-        { icon: Clock, text: '24/7 qo\'llab-quvvatlash' },
+        { icon: Clock, text: `Buyurtmalar ${BRAND.workHours}` },
         { icon: CheckCircle2, text: 'Tez javob' },
-        { icon: Headphones, text: 'Professional yordam' },
+        { icon: MapPin, text: BRAND.city },
       ]
 
   return (
@@ -170,7 +188,7 @@ export function SupportPage({ onBack }: Props) {
         <div
           className="relative overflow-hidden rounded-3xl p-6"
           style={{
-            background: 'linear-gradient(135deg, var(--brand) 0%, color-mix(in srgb, var(--brand) 70%, #7c3aed) 100%)',
+            background: 'linear-gradient(135deg, #067a3f 0%, #02301b 100%)',
           }}
         >
           {/* Decorative circles */}
@@ -190,10 +208,10 @@ export function SupportPage({ onBack }: Props) {
             >
               <Headphones size={28} color="white" />
             </div>
-            <h2 className="text-xl font-extrabold text-white leading-tight">
-              {lang === 'ru' ? 'Разработчик / Developer' : 'Dasturchi / Developer'}
+            <h2 className="wordmark text-xl text-white leading-tight">
+              {lang === 'ru' ? 'Служба заботы V7' : 'V7 mijozlar xizmati'}
             </h2>
-            <p className="mt-1 text-sm text-white opacity-80">
+            <p className="mt-1.5 text-sm text-white opacity-80">
               {lang === 'ru'
                 ? 'Свяжитесь с нами любым удобным способом'
                 : "Qulay usul orqali biz bilan bog'laning"}

@@ -1,6 +1,8 @@
 import firebase_db
 import urllib.parse
 
+from config import FIREBASE_STORAGE_BUCKET
+
 db = firebase_db.db
 docs = db.collection("products").get()
 
@@ -14,7 +16,7 @@ for doc in docs:
         if "storage.googleapis.com" in img:
             filename = img.split("products/")[-1]
             encoded = urllib.parse.quote(f"products/{filename}", safe="")
-            new_url = f"https://firebasestorage.googleapis.com/v0/b/ecommercytest.firebasestorage.app/o/{encoded}?alt=media"
+            new_url = f"https://firebasestorage.googleapis.com/v0/b/{FIREBASE_STORAGE_BUCKET}/o/{encoded}?alt=media"
             new_images.append(new_url)
             updated = True
         else:

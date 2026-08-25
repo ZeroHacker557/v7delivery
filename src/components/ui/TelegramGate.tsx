@@ -1,6 +1,5 @@
-import { ShoppingBag } from 'lucide-react'
-
-const BOT_URL = 'https://t.me/ecommercy_test_bot'
+import { BrandLogo } from '../brand/BrandLogo'
+import { BOT_URL } from '../../config/brand'
 
 /**
  * Ilova Telegram tashqarisida ochilganda ko'rsatiladi.
@@ -16,23 +15,24 @@ export function TelegramGate() {
         className="w-full max-w-sm rounded-[24px] p-8 text-center"
         style={{ background: 'var(--surface)', boxShadow: 'var(--shadow-md)' }}
       >
-        <span
-          className="mx-auto grid size-16 place-items-center rounded-2xl"
-          style={{ background: 'var(--brand)', color: 'var(--brand-ink)' }}
-        >
-          <ShoppingBag size={30} />
-        </span>
+        <BrandLogo size={64} markOnly className="justify-center" />
 
-        <h1 className="mt-6 text-2xl font-extrabold" style={{ color: 'var(--ink)' }}>
-          Shop<span style={{ color: 'var(--brand)' }}>Online</span>
+        <h1 className="wordmark mt-6 text-3xl" style={{ color: 'var(--ink)' }}>
+          V7<sup className="text-[0.4em] align-super">&trade;</sup>
         </h1>
+        <p
+          className="mt-2 text-[0.68rem] font-bold uppercase"
+          style={{ letterSpacing: '0.22em', color: 'var(--brand)' }}
+        >
+          Vitamin Sparkling Drink
+        </p>
 
-        <p className="mt-3 text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
-          Do&rsquo;kon Telegram ilovasi ichida ishlaydi. Botni oching va
+        <p className="mt-5 text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+          V7 do&rsquo;koni Telegram ilovasi ichida ishlaydi. Botni oching va
           &laquo;Katalogni ochish&raquo; tugmasini bosing.
         </p>
         <p className="mt-2 text-sm leading-relaxed" style={{ color: 'var(--faint)' }}>
-          Магазин работает внутри Telegram. Откройте бота и нажмите
+          Магазин V7 работает внутри Telegram. Откройте бота и нажмите
           &laquo;Открыть каталог&raquo;.
         </p>
 

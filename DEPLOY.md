@@ -10,6 +10,34 @@
 
 ---
 
+## 0. V7 ga o'tish — almashtiriladigan qiymatlar
+
+Loyiha V7™ brendiga moslandi. Yangi Firebase loyihasi, yangi bot va yangi
+domen ulanganda **faqat quyidagi joylar** o'zgaradi:
+
+| Nima | Qayerga |
+|---|---|
+| Firebase web config (apiKey, projectId, bucket...) | `src/config/firebase.ts` |
+| Firebase service account JSON | Vercel env `FIREBASE_SERVICE_ACCOUNT` + `bot/` papkasiga fayl |
+| Service account fayl nomi va bucket | `bot/config.py` → `FIREBASE_KEY_FILE`, `FIREBASE_STORAGE_BUCKET` |
+| Bot tokeni | `bot/config.py` → `BOT_TOKEN` **va** Vercel env `BOT_TOKEN` (ikkalasi bir xil) |
+| Bot username | `bot/config.py` → `BOT_USERNAME`, `src/config/brand.ts` → `botUsername` |
+| Mini app domeni | `bot/config.py` → `MINI_APP_URL` + BotFather `/setdomain` |
+| Admin Telegram ID | `bot/config.py` → `ADMIN_IDS` |
+| Aloqa raqami / email / Telegram | `src/config/brand.ts` va `bot/config.py` |
+| To'lov kartasi | `bot/config.py` → `CARD_NUMBER`, `CARD_OWNER` (keyin Firestore `settings/payment`) |
+
+> Firebase web config (`apiKey` va h.k.) maxfiy emas — Firebase uni brauzerga
+> ataylab ochiq beradi, himoya Firestore Rules tomonida. Shuning uchun u env
+> o'zgaruvchi emas, oddiy fayl.
+
+> ⚠️ `src/config/firebase.ts` dagi `projectId` bot ishlatadigan service
+> account bilan **bir xil loyihaga** tegishli bo'lishi shart. Aks holda bot
+> bir bazaga yozadi, ilova boshqasidan o'qiydi — katalog bo'sh ko'rinadi.
+
+Brend ranglari va shriftlari `src/styles.css` dagi CSS tokenlarida —
+komponentlarda hex yozilmagan, shuning uchun rang o'zgartirish bitta joyda.
+
 ## 1. Bot tokenini almashtiring — MAJBURIY
 
 Token git tarixida ochiq turibdi. `initData` imzosi aynan shu token bilan

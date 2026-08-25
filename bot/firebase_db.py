@@ -9,9 +9,12 @@ from datetime import datetime, timezone
 import firebase_admin
 from firebase_admin import credentials, firestore, storage
 
-from config import CARD_NUMBER, CARD_OWNER
+from config import (
+    CARD_NUMBER, CARD_OWNER,
+    FIREBASE_KEY_FILE, FIREBASE_STORAGE_BUCKET,
+)
 
-KEY_FILENAME = "ecommercytest-firebase-adminsdk-fbsvc-645304f3a0.json"
+KEY_FILENAME = FIREBASE_KEY_FILE
 
 # Search for service account key file in root or bot dir
 key_path = KEY_FILENAME
@@ -21,7 +24,7 @@ if not os.path.exists(key_path):
 if not firebase_admin._apps:
     cred = credentials.Certificate(key_path)
     firebase_admin.initialize_app(cred, {
-        'storageBucket': 'ecommercytest.firebasestorage.app'
+        'storageBucket': FIREBASE_STORAGE_BUCKET
     })
 
 db = firestore.client()

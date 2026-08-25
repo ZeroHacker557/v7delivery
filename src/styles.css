@@ -2,7 +2,12 @@
 @import "leaflet/dist/leaflet.css";
 
 /* ══════════════════════════════════════════════════════════════
-   DIZAYN TOKENLARI
+   V7 DIZAYN TOKENLARI
+
+   Brend ranglari V7™ logosidan olingan:
+     yashil  #008743  — asosiy (logo va bankalarning rangi)
+     oltin   #C79A32  — ikkilamchi aksent (reyting, chegirma, VIP)
+     ko'mir  #0D0D0F  — qorong'i rejim asosi
 
    Barcha ranglar shu yerda. Komponentlarda hex yozilmaydi —
    faqat var(--...) yoki Tailwind utilitasi (bg-surface, text-ink).
@@ -15,39 +20,45 @@
    ══════════════════════════════════════════════════════════════ */
 
 :root {
-  /* Yuzalar */
-  --bg: #f4f3f8;
+  /* Yuzalar — sof oq ustiga zaif yashil tusli fon */
+  --bg: #f1f6f2;
   --surface: #ffffff;
-  --surface-2: #faf9fc;
-  --surface-3: #f1f0f6;
+  --surface-2: #f8fbf9;
+  --surface-3: #edf4ef;
 
   /* Matn */
-  --ink: #111426;
-  --ink-2: #334155;
-  --muted: #64748b;
-  --faint: #8b93a7;
+  --ink: #0f1a14;
+  --ink-2: #2d3c34;
+  --muted: #5f7268;
+  --faint: #8a9c92;
 
   /* Chegaralar */
-  --line: #ececf2;
-  --line-soft: #f4f4f8;
+  --line: #e5ede8;
+  --line-soft: #f0f6f2;
 
-  /* Brend */
-  --brand: #7c3aed;
-  --brand-strong: #6d28d9;
+  /* Brend — V7 yashili */
+  --brand: #008743;
+  --brand-strong: #006b35;
   --brand-ink: #ffffff;
-  --brand-soft: #f5f0ff;
-  --brand-soft-2: #ece4ff;
-  --brand-line: #ddd0ff;
+  --brand-soft: #e6f4ec;
+  --brand-soft-2: #d0eadd;
+  --brand-line: #b2dbc6;
+
+  /* Aksent — V7 oltini (reyting yulduzlari, chegirma nishonlari) */
+  --gold: #b5801a;
+  --gold-strong: #8f6410;
+  --gold-soft: #fdf4e0;
+  --gold-line: #f0dbab;
 
   /* Semantik */
-  --success: #16a34a;
-  --success-soft: #e7f6ec;
-  --warning: #c2410c;
-  --warning-soft: #fff3e8;
-  --danger: #dc2626;
-  --danger-soft: #fdeceb;
-  --info: #2563eb;
-  --info-soft: #eaf0fd;
+  --success: #008743;
+  --success-soft: #e6f4ec;
+  --warning: #b5801a;
+  --warning-soft: #fdf4e0;
+  --danger: #d02c26;
+  --danger-soft: #fdecea;
+  --info: #1f6fd0;
+  --info-soft: #e8f1fc;
 
   /* Radiuslar — uchta pog'ona, aralashtirilmaydi */
   --r-sm: 10px;
@@ -55,10 +66,10 @@
   --r-lg: 24px;
 
   /* Soyalar — rangsiz, ikki qatlamli */
-  --shadow-sm: 0 1px 2px rgb(16 12 34 / 0.04), 0 1px 3px rgb(16 12 34 / 0.03);
-  --shadow-md: 0 2px 4px rgb(16 12 34 / 0.04), 0 8px 20px rgb(16 12 34 / 0.06);
-  --shadow-lg: 0 4px 8px rgb(16 12 34 / 0.05), 0 16px 36px rgb(16 12 34 / 0.09);
-  --shadow-brand: 0 6px 20px rgb(124 58 237 / 0.22);
+  --shadow-sm: 0 1px 2px rgb(6 26 16 / 0.04), 0 1px 3px rgb(6 26 16 / 0.03);
+  --shadow-md: 0 2px 4px rgb(6 26 16 / 0.04), 0 8px 20px rgb(6 26 16 / 0.07);
+  --shadow-lg: 0 4px 8px rgb(6 26 16 / 0.05), 0 16px 36px rgb(6 26 16 / 0.1);
+  --shadow-brand: 0 6px 20px rgb(0 135 67 / 0.26);
 
   /* Telegram xavfsiz zonasi (JS to'ldiradi) */
   --safe-bottom: 0px;
@@ -67,80 +78,94 @@
   color-scheme: light;
 }
 
+/*
+ * Qorong'i palitra bir marta yoziladi va ikki selektorda qayta
+ * ishlatiladi: tizim tanlovi (media) va aniq tanlov (data-theme).
+ */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0e0d13;
-    --surface: #17161f;
-    --surface-2: #1e1c28;
-    --surface-3: #252231;
+    --bg: #0b0e0c;
+    --surface: #121815;
+    --surface-2: #19211c;
+    --surface-3: #212b25;
 
-    --ink: #eceaf2;
-    --ink-2: #c8c4d4;
-    --muted: #948fa5;
-    --faint: #7b7690;
+    --ink: #e9f1ec;
+    --ink-2: #c3d2c9;
+    --muted: #8ea398;
+    --faint: #73897e;
 
-    --line: #2b2837;
-    --line-soft: #221f2c;
+    --line: #253029;
+    --line-soft: #1c2520;
 
-    --brand: #a78bfa;
-    --brand-strong: #8b5cf6;
-    --brand-ink: #14121c;
-    --brand-soft: #241d3a;
-    --brand-soft-2: #2d2447;
-    --brand-line: #3d3260;
+    --brand: #3ecf82;
+    --brand-strong: #2fb670;
+    --brand-ink: #04140b;
+    --brand-soft: #11291c;
+    --brand-soft-2: #153422;
+    --brand-line: #21432e;
 
-    --success: #4ade80;
-    --success-soft: #16281d;
-    --warning: #fb923c;
-    --warning-soft: #2c1f16;
-    --danger: #f87171;
-    --danger-soft: #2e1a1a;
-    --info: #93b4ff;
-    --info-soft: #1a2138;
+    --gold: #e3b341;
+    --gold-strong: #c79a32;
+    --gold-soft: #2a2213;
+    --gold-line: #453519;
+
+    --success: #3ecf82;
+    --success-soft: #11291c;
+    --warning: #e3b341;
+    --warning-soft: #2a2213;
+    --danger: #f4756d;
+    --danger-soft: #2e1917;
+    --info: #7fb0f5;
+    --info-soft: #16223a;
 
     --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
     --shadow-md: 0 4px 16px rgb(0 0 0 / 0.45);
     --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.5);
-    --shadow-brand: 0 6px 20px rgb(0 0 0 / 0.45);
+    --shadow-brand: 0 6px 20px rgb(0 0 0 / 0.5);
 
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #0e0d13;
-  --surface: #17161f;
-  --surface-2: #1e1c28;
-  --surface-3: #252231;
+  --bg: #0b0e0c;
+  --surface: #121815;
+  --surface-2: #19211c;
+  --surface-3: #212b25;
 
-  --ink: #eceaf2;
-  --ink-2: #c8c4d4;
-  --muted: #948fa5;
-  --faint: #7b7690;
+  --ink: #e9f1ec;
+  --ink-2: #c3d2c9;
+  --muted: #8ea398;
+  --faint: #73897e;
 
-  --line: #2b2837;
-  --line-soft: #221f2c;
+  --line: #253029;
+  --line-soft: #1c2520;
 
-  --brand: #a78bfa;
-  --brand-strong: #8b5cf6;
-  --brand-ink: #14121c;
-  --brand-soft: #241d3a;
-  --brand-soft-2: #2d2447;
-  --brand-line: #3d3260;
+  --brand: #3ecf82;
+  --brand-strong: #2fb670;
+  --brand-ink: #04140b;
+  --brand-soft: #11291c;
+  --brand-soft-2: #153422;
+  --brand-line: #21432e;
 
-  --success: #4ade80;
-  --success-soft: #16281d;
-  --warning: #fb923c;
-  --warning-soft: #2c1f16;
-  --danger: #f87171;
-  --danger-soft: #2e1a1a;
-  --info: #93b4ff;
-  --info-soft: #1a2138;
+  --gold: #e3b341;
+  --gold-strong: #c79a32;
+  --gold-soft: #2a2213;
+  --gold-line: #453519;
+
+  --success: #3ecf82;
+  --success-soft: #11291c;
+  --warning: #e3b341;
+  --warning-soft: #2a2213;
+  --danger: #f4756d;
+  --danger-soft: #2e1917;
+  --info: #7fb0f5;
+  --info-soft: #16223a;
 
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
   --shadow-md: 0 4px 16px rgb(0 0 0 / 0.45);
   --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.5);
-  --shadow-brand: 0 6px 20px rgb(0 0 0 / 0.45);
+  --shadow-brand: 0 6px 20px rgb(0 0 0 / 0.5);
 
   color-scheme: dark;
 }
@@ -148,7 +173,10 @@
 /* Tokenlarni Tailwind utilitalariga bog'laymiz:
    bg-surface, text-ink, border-line, text-brand va h.k. */
 @theme inline {
-  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  /* Montserrat — V7 qadoqlaridagi matn shrifti */
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  /* Archivo Black — logotip va yirik sarlavhalar uchun */
+  --font-display: "Archivo Black", "Montserrat", ui-sans-serif, sans-serif;
 
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -164,6 +192,8 @@
   --color-brand-strong: var(--brand-strong);
   --color-brand-soft: var(--brand-soft);
   --color-brand-line: var(--brand-line);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-danger: var(--danger);
@@ -792,7 +822,7 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  background: rgb(10 8 20 / 0.5);
+  background: rgb(4 18 11 / 0.5);
   backdrop-filter: blur(3px);
   animation: overlayIn 0.25s ease;
 }
@@ -869,12 +899,39 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ====== Hero ====== */
+/*
+ * Bankaning o'zi to'q yashil, shuning uchun fon ham to'q — muzli
+ * render oq fonda "kesilgan" bo'lib ko'rinmasligi uchun. Matn har
+ * ikkala temada ham oq, shu bois tokenlar emas, aniq ranglar.
+ */
 .hero-banner {
   position: relative;
   overflow: hidden;
   border-radius: var(--r-lg);
-  background: linear-gradient(135deg, var(--brand-soft) 0%, var(--brand-soft-2) 100%);
-  color: var(--ink);
+  background:
+    radial-gradient(120% 90% at 78% 45%, rgb(62 207 130 / 0.28) 0%, transparent 60%),
+    linear-gradient(135deg, #067a3f 0%, #02301b 100%);
+  color: #ffffff;
+}
+
+/* Bankaga yumshoq yorug'lik halqasi — muz va splash ajralib tursin */
+.hero-glow {
+  position: absolute;
+  right: -6%;
+  top: 50%;
+  width: 62%;
+  aspect-ratio: 1;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(255 255 255 / 0.22) 0%, transparent 68%);
+  pointer-events: none;
+}
+
+/* Logotip yozuvi — Archivo Black */
+.wordmark {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  line-height: 1;
 }
 
 /* ====== Checkout success ====== */
@@ -885,7 +942,7 @@ a { color: inherit; text-decoration: none; }
   display: grid;
   place-items: center;
   padding: 1.5rem;
-  background: rgb(10 8 20 / 0.55);
+  background: rgb(4 18 11 / 0.55);
   backdrop-filter: blur(4px);
   animation: overlayIn 0.25s ease;
 }

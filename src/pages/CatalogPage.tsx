@@ -211,7 +211,7 @@ export function CatalogPage({
             </div>
           </div>
 
-          {/* O'lcham */}
+          {/* Hajm */}
           {allSizes.length > 0 && (
             <div className="mb-4">
               <label className="field-label">{t('catalog.size')}</label>
@@ -234,7 +234,7 @@ export function CatalogPage({
             </div>
           )}
 
-          {/* Rang */}
+          {/* Ta'm */}
           {allColors.length > 0 && (
             <div className="mb-4">
               <label className="field-label">{t('catalog.color')}</label>

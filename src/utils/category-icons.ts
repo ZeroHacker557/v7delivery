@@ -1,5 +1,6 @@
 import {
-  Box, Gem, Grid2X2, Home, Laptop, Package, Shirt, ShoppingBag, Sparkles, Watch,
+  Apple, Cherry, Citrus, CupSoda, Droplets, GlassWater, Grape, Grid2X2,
+  Leaf, Package, Snowflake, Sparkles, Wheat,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -7,37 +8,52 @@ import {
  * Kategoriya ikonkasi.
  *
  * Avval bazadagi `icon` maydoniga qaraydi (admin tanlagan), topilmasa
- * nom bo'yicha taxmin qiladi, u ham bo'lmasa umumiy quti ishlatiladi.
+ * nom bo'yicha taxmin qiladi, u ham bo'lmasa umumiy banka ishlatiladi.
  * Ilgari faqat oldindan yozilgan nomlar bilan solishtirilardi, shuning
  * uchun har qanday yangi kategoriya doim quti bo'lib qolardi (F-17).
+ *
+ * Ro'yxat V7 assortimentiga moslangan: uchta liniya (Vitamin Sparkling,
+ * Super Soda, Flavored Malt) va to'qqizta ta'm.
  */
 const BY_KEY: Record<string, LucideIcon> = {
   all: Grid2X2,
-  package: Package,
-  bag: ShoppingBag,
-  shirt: Shirt,
-  clothes: Shirt,
-  laptop: Laptop,
-  electronics: Laptop,
-  home: Home,
-  gem: Gem,
-  jewelry: Gem,
-  shoes: Box,
-  box: Box,
-  watch: Watch,
-  beauty: Sparkles,
-  perfume: Sparkles,
+  soda: CupSoda,
+  drink: CupSoda,
+  can: CupSoda,
+  water: GlassWater,
+  suv: GlassWater,
+  vitamin: Sparkles,
+  sparkling: Sparkles,
+  malt: Wheat,
+  citrus: Citrus,
+  lemon: Citrus,
+  limon: Citrus,
+  mint: Leaf,
+  yalpiz: Leaf,
+  apple: Apple,
+  olma: Apple,
+  grape: Grape,
+  berry: Cherry,
+  cherry: Cherry,
+  pomegranate: Cherry,
+  cola: CupSoda,
+  diet: Droplets,
+  ice: Snowflake,
+  box: Package,
 }
 
 const BY_NAME: [RegExp, LucideIcon][] = [
-  [/kiyim|одежд|clothes/i, Shirt],
-  [/elektron|электрон|texnika|laptop|telefon/i, Laptop],
-  [/poyabzal|krossov|обув|shoes/i, Box],
-  [/sumka|сумк|bag/i, ShoppingBag],
-  [/parfum|parfyum|atir|парфюм|beauty|kosmetik/i, Sparkles],
-  [/zargar|ювелир|oltin|jewel/i, Gem],
-  [/soat|час|watch/i, Watch],
-  [/uy|дом|home|mebel/i, Home],
+  [/vitamin|sparkling|витамин/i, Sparkles],
+  [/malt|солод/i, Wheat],
+  [/soda|kola|cola|кола|содa|сода/i, CupSoda],
+  [/limon|lemon|citrus|лимон|цитрус/i, Citrus],
+  [/yalpiz|mint|мят/i, Leaf],
+  [/olma|apple|яблок/i, Apple],
+  [/anor|pomegranate|chernika|blueberry|гранат|черник|uzum|grape|виноград/i, Cherry],
+  [/ananas|pineapple|kolada|colada|ананас|тропик/i, Grape],
+  [/diet|shakarsiz|без сахара|zero/i, Droplets],
+  [/suv|water|вода/i, GlassWater],
+  [/muz|ice|лед|лёд/i, Snowflake],
   [/barcha|hamma|все|all/i, Grid2X2],
 ]
 
@@ -57,5 +73,5 @@ export function categoryIcon(icon?: string, name?: string): LucideIcon {
       if (pattern.test(name)) return Icon
     }
   }
-  return Package
+  return CupSoda
 }

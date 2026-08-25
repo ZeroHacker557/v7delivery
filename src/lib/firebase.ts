@@ -1,18 +1,9 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore, collection, onSnapshot, query, where, doc, updateDoc, writeBatch, getDocs, getDoc } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
+import { firebaseConfig } from '../config/firebase'
 import { parseDate } from '../utils/date'
 import type { Product, Category, Order, PaymentSettings, DeliverySettings, Notification, UserProfile } from '../types/domain'
-
-const firebaseConfig = {
-  apiKey: "AIzaSyB-JENf9xTOJcEF81-6KJxb0HnCyLmjkc0",
-  authDomain: "ecommercytest.firebaseapp.com",
-  projectId: "ecommercytest",
-  storageBucket: "ecommercytest.firebasestorage.app",
-  messagingSenderId: "107932467075",
-  appId: "1:107932467075:web:1d2740db24de18661c00b6",
-  measurementId: "G-TFYZD2LLN0"
-}
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig)

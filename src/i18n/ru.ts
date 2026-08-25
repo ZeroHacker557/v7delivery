@@ -17,49 +17,53 @@ export const ru: Record<TranslationKey, string> = {
   'common.optional': 'необязательно',
   'common.required': 'обязательно',
 
+  // ── Бренд ──
+  'brand.tagline': 'Vitamin Sparkling Drink',
+  'brand.slogan': '100% натуральный вкус — свежесть в каждом глотке',
+
   // ── Навигация ──
   'nav.home': 'Главная',
-  'nav.catalog': 'Каталог',
+  'nav.catalog': 'Вкусы',
   'nav.favorites': 'Избранное',
   'nav.orders': 'Заказы',
   'nav.profile': 'Профиль',
 
   // ── Главная ──
-  'home.searchPlaceholder': 'Поиск товара или категории...',
-  'home.heroBadge': 'Новая коллекция',
-  'home.heroTitle': 'Всё, что вы искали — здесь',
-  'home.heroSubtitle': 'Качественные товары по удобным ценам!',
-  'home.heroCta': 'За покупками',
-  'home.popular': 'Популярные товары',
+  'home.searchPlaceholder': 'Поиск вкуса или линейки...',
+  'home.heroBadge': '100% натуральный вкус',
+  'home.heroTitle': 'Ледяная свежесть — в одном глотке',
+  'home.heroSubtitle': 'Газированные напитки с витаминами. 300 мл, 9 вкусов.',
+  'home.heroCta': 'Заказать',
+  'home.popular': 'Популярные вкусы',
   'home.seeAll': 'Смотреть все',
-  'home.emptyTitle': 'Товары появятся скоро!',
+  'home.emptyTitle': 'Вкусы появятся скоро!',
   'home.emptyText': 'Как только админ добавит товары, они появятся здесь.',
 
   'benefit.delivery': 'Быстрая доставка',
-  'benefit.deliverySub': 'За 1-3 дня',
+  'benefit.deliverySub': 'По Ташкенту за 24 часа',
   'benefit.payment': 'Безопасная оплата',
-  'benefit.paymentSub': '100% гарантия',
-  'benefit.support': 'Поддержка 24/7',
+  'benefit.paymentSub': 'Наличные или карта',
+  'benefit.support': 'Связь 24/7',
   'benefit.supportSub': 'Всегда на связи',
-  'benefit.return': 'Возврат',
-  'benefit.returnSub': 'В течение 14 дней',
+  'benefit.natural': '100% натурально',
+  'benefit.naturalSub': 'Без искусственных красителей',
 
   // ── Каталог ──
-  'catalog.title': 'Каталог',
+  'catalog.title': 'Каталог вкусов',
   'catalog.filters': 'Фильтры',
   'catalog.sortCheap': 'Сначала дешёвые',
   'catalog.sortExpensive': 'Сначала дорогие',
-  'catalog.total': 'Всего {count} товаров',
-  'catalog.emptyCategory': 'В этой категории товаров нет',
-  'catalog.emptyCategoryText': 'Выберите другую категорию.',
-  'catalog.filterSummary': 'Категория: {category} • Цена: {sort}',
+  'catalog.total': 'Всего {count} вкусов',
+  'catalog.emptyCategory': 'В этой линейке товаров нет',
+  'catalog.emptyCategoryText': 'Выберите другую линейку.',
+  'catalog.filterSummary': 'Линейка: {category} • Цена: {sort}',
   'catalog.sortAsc': 'по возрастанию',
   'catalog.sortDesc': 'по убыванию',
   'catalog.priceRange': 'Диапазон цен',
   'catalog.priceFrom': 'от',
   'catalog.priceTo': 'до',
-  'catalog.size': 'Размер',
-  'catalog.color': 'Цвет',
+  'catalog.size': 'Объём',
+  'catalog.color': 'Вкус',
   'catalog.inStockOnly': 'Только в наличии',
   'catalog.reset': 'Сбросить',
   'catalog.apply': 'Применить',
@@ -69,9 +73,9 @@ export const ru: Record<TranslationKey, string> = {
 
   // ── Товар ──
   'product.title': 'Товар',
-  'product.fastDelivery': 'Быстрая доставка',
-  'product.chooseColor': 'Выберите цвет',
-  'product.chooseSize': 'Выберите размер',
+  'product.fastDelivery': 'Доставим охлаждённым',
+  'product.chooseColor': 'Выберите вкус',
+  'product.chooseSize': 'Выберите объём',
   'product.about': 'О товаре',
   'product.addToCart': 'В корзину',
   'product.soldOut': 'Нет в наличии',
@@ -82,7 +86,7 @@ export const ru: Record<TranslationKey, string> = {
 
   // ── Отзывы ──
   'reviews.title': 'Отзывы',
-  'reviews.rateThis': 'Оцените товар:',
+  'reviews.rateThis': 'Оцените вкус:',
   'reviews.placeholder': 'Напишите своё мнение...',
   'reviews.submit': 'Оставить отзыв',
   'reviews.submitting': 'Отправка...',
@@ -94,19 +98,19 @@ export const ru: Record<TranslationKey, string> = {
   'reviews.thanks': 'Спасибо за отзыв!',
   'reviews.myTitle': 'Мои отзывы',
   'reviews.myEmpty': 'Отзывов нет',
-  'reviews.myEmptyText': 'Вы ещё не оставили ни одного отзыва.',
+  'reviews.myEmptyText': 'Вы ещё не оценили ни один вкус.',
   'reviews.productId': 'ID товара: {id}',
 
   // ── Корзина ──
   'cart.title': 'Корзина',
-  'cart.kinds': 'товаров: {count}',
+  'cart.kinds': 'видов вкуса: {count}',
   'cart.empty': 'Ваша корзина пуста',
-  'cart.emptyText': 'Выберите понравившиеся товары.',
+  'cart.emptyText': 'Выберите понравившиеся вкусы.',
   'cart.total': 'Итого',
   'cart.checkout': 'Оформить заказ',
-  'cart.size': 'Размер',
-  'cart.color': 'Цвет',
-  'cart.goToCatalog': 'Перейти в каталог',
+  'cart.size': 'Объём',
+  'cart.color': 'Вкус',
+  'cart.goToCatalog': 'Смотреть вкусы',
 
   // ── Поиск ──
   'search.placeholder': 'Поиск...',
@@ -117,7 +121,7 @@ export const ru: Record<TranslationKey, string> = {
 
   // ── Оформление ──
   'checkout.title': 'Оформление заказа',
-  'checkout.summary': 'Заказ ({count} товаров)',
+  'checkout.summary': 'Заказ ({count} шт)',
   'checkout.promoPlaceholder': 'Промокод (если есть)',
   'checkout.promoApply': 'Применить',
   'checkout.promoClear': 'Убрать',
@@ -149,13 +153,13 @@ export const ru: Record<TranslationKey, string> = {
     'После заполнения формы бот пришлёт вам сообщение. Отправьте чек об оплате боту — админ проверит и подтвердит.',
   'checkout.submit': 'Оформить заказ',
   'checkout.submitting': 'Отправка...',
-  'checkout.disclaimer': 'Нажимая кнопку, вы отправляете свои данные продавцу.',
+  'checkout.disclaimer': 'Нажимая кнопку, вы отправляете свои данные отделу продаж V7.',
   'checkout.fillAll': 'Пожалуйста, заполните все поля',
   'checkout.cartEmpty': 'Ваша корзина пуста',
   'checkout.failed': 'Заказ не отправлен. Проверьте интернет и попробуйте снова',
   'checkout.success': 'Заказ успешно оформлен!',
-  'checkout.successTitle': 'Заказ оформлен!',
-  'checkout.successText': 'Ваш заказ принят. Мы свяжемся с вами в ближайшее время.',
+  'checkout.successTitle': 'Заказ принят!',
+  'checkout.successText': 'Ваш заказ поступил на склад V7. Наш оператор свяжется с вами в ближайшее время.',
   'checkout.viewOrders': 'Мои заказы',
 
   // ── Заказы ──
@@ -164,7 +168,7 @@ export const ru: Record<TranslationKey, string> = {
   'orders.oldest': 'Сначала старые',
   'orders.details': 'Подробнее',
   'orders.hide': 'Свернуть',
-  'orders.itemCount': 'товаров: {count}',
+  'orders.itemCount': 'шт: {count}',
   'orders.empty': 'Заказов пока нет',
   'orders.emptyText': 'Сделайте свой первый заказ!',
   'orders.emptyFilter': 'В этом разделе заказов нет',
@@ -194,7 +198,7 @@ export const ru: Record<TranslationKey, string> = {
   // ── Избранное ──
   'favorites.title': 'Избранное',
   'favorites.empty': 'В избранном пока пусто',
-  'favorites.emptyText': 'Добавляйте товары кнопкой ❤️.',
+  'favorites.emptyText': 'Добавляйте любимые вкусы кнопкой ❤️.',
 
   // ── Профиль ──
   'profile.title': 'Профиль',
@@ -258,6 +262,6 @@ export const ru: Record<TranslationKey, string> = {
   // ── Telegram ──
   'gate.title': 'Откройте через Telegram',
   'gate.text':
-    'Магазин работает внутри Telegram. Откройте бота и нажмите «Открыть каталог».',
+    'Магазин V7 работает внутри Telegram. Откройте бота и нажмите «Открыть каталог».',
   'gate.button': 'Открыть в Telegram',
 }
