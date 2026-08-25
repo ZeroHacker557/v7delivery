@@ -9,9 +9,13 @@ import {
   Headphones,
   Clock,
   CheckCircle2,
+  Code2,
+  Droplets,
+  Leaf,
+  Sparkles,
 } from 'lucide-react'
 import { useState } from 'react'
-import { BRAND } from '../config/brand'
+import { BRAND, DEVELOPER } from '../config/brand'
 import { useT } from '../i18n'
 
 type Props = {
@@ -146,6 +150,24 @@ export function SupportPage({ onBack }: Props) {
     },
   ]
 
+  const devContacts = [
+    { icon: Phone, value: DEVELOPER.phone, href: DEVELOPER.phoneHref },
+    { icon: MessageCircle, value: DEVELOPER.telegram, href: DEVELOPER.telegramHref },
+    { icon: Mail, value: DEVELOPER.email, href: `mailto:${DEVELOPER.email}` },
+  ]
+
+  const about = lang === 'ru'
+    ? [
+        { icon: Leaf, title: '100% натуральный вкус', text: 'Без искусственных красителей и консервантов вкуса.' },
+        { icon: Sparkles, title: 'Обогащено витаминами', text: 'Линейка Vitamin Sparkling — витамины в каждой банке.' },
+        { icon: Droplets, title: '9 вкусов, 3 линейки', text: 'Vitamin Sparkling, Super Soda и Flavored Malt. 300 мл.' },
+      ]
+    : [
+        { icon: Leaf, title: "100% tabiiy ta'm", text: "Sun'iy bo'yoq va ta'm konservantlari ishlatilmaydi." },
+        { icon: Sparkles, title: 'Vitaminlar bilan boyitilgan', text: 'Vitamin Sparkling liniyasi — har bankada vitamin.' },
+        { icon: Droplets, title: "9 ta'm, 3 liniya", text: 'Vitamin Sparkling, Super Soda va Flavored Malt. 300 ml.' },
+      ]
+
   const features = lang === 'ru'
     ? [
         { icon: Clock, text: `Приём заказов ${BRAND.workHours}` },
@@ -275,6 +297,86 @@ export function SupportPage({ onBack }: Props) {
               </span>
             </a>
           ))}
+        </div>
+      </section>
+
+      {/* V7 haqida */}
+      <section
+        className="px-5 pt-7 sm:px-10"
+        style={{ animation: 'fadeInUp 0.4s ease 0.12s both' }}
+      >
+        <h2 className="section-title mb-4">
+          {lang === 'ru' ? 'О V7' : 'V7 haqida'}
+        </h2>
+        <div
+          className="rounded-2xl border p-2"
+          style={{ borderColor: 'var(--line)', background: 'var(--surface)' }}
+        >
+          {about.map(({ icon: Icon, title, text }) => (
+            <div key={title} className="flex items-start gap-3 p-3">
+              <span
+                className="grid size-10 shrink-0 place-items-center rounded-xl"
+                style={{ background: 'var(--brand-soft)', color: 'var(--brand)' }}
+              >
+                <Icon size={19} />
+              </span>
+              <div className="min-w-0">
+                <p className="text-sm font-bold" style={{ color: 'var(--ink)' }}>{title}</p>
+                <p className="mt-0.5 text-xs leading-relaxed" style={{ color: 'var(--muted)' }}>
+                  {text}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Dasturchi — texnik savollar shu yerga */}
+      <section
+        className="px-5 pt-7 sm:px-10"
+        style={{ animation: 'fadeInUp 0.4s ease 0.14s both' }}
+      >
+        <h2 className="section-title mb-4">
+          {lang === 'ru' ? 'Разработчик' : 'Dasturchi'}
+        </h2>
+        <div
+          className="rounded-2xl border p-5"
+          style={{ borderColor: 'var(--line)', background: 'var(--surface)' }}
+        >
+          <div className="flex items-center gap-3">
+            <span
+              className="grid size-12 shrink-0 place-items-center rounded-2xl"
+              style={{ background: 'var(--gold-soft)', color: 'var(--gold)' }}
+            >
+              <Code2 size={22} />
+            </span>
+            <div className="min-w-0">
+              <p className="font-bold" style={{ color: 'var(--ink)' }}>{DEVELOPER.name}</p>
+              <p className="text-xs" style={{ color: 'var(--muted)' }}>
+                {lang === 'ru'
+                  ? 'Разработка приложения и технические вопросы'
+                  : "Ilova dasturchisi — texnik savollar bo'yicha"}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-4 flex flex-col gap-2">
+            {devContacts.map(({ icon: Icon, value, href }) => (
+              <a
+                key={value}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-3 rounded-xl px-3 py-2.5 transition active:scale-[0.98]"
+                style={{ background: 'var(--surface-2)', textDecoration: 'none' }}
+              >
+                <Icon size={17} style={{ color: 'var(--gold)' }} />
+                <span className="truncate text-sm font-semibold" style={{ color: 'var(--ink-2)' }}>
+                  {value}
+                </span>
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 

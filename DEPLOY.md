@@ -17,15 +17,26 @@ domen ulanganda **faqat quyidagi joylar** o'zgaradi:
 
 | Nima | Qayerga |
 |---|---|
-| Firebase web config (apiKey, projectId, bucket...) | `src/config/firebase.ts` |
-| Firebase service account JSON | Vercel env `FIREBASE_SERVICE_ACCOUNT` + `bot/` papkasiga fayl |
+| **Bot tokeni** | `bot/.env` (git'ga tushmaydi) **va** Vercel env `BOT_TOKEN` |
+| Firebase service account JSON | Loyiha ildiziga fayl (git'ga tushmaydi) + Vercel env `FIREBASE_SERVICE_ACCOUNT` |
 | Service account fayl nomi va bucket | `bot/config.py` → `FIREBASE_KEY_FILE`, `FIREBASE_STORAGE_BUCKET` |
-| Bot tokeni | `bot/config.py` → `BOT_TOKEN` **va** Vercel env `BOT_TOKEN` (ikkalasi bir xil) |
+| Firebase web config | `src/config/firebase.ts` |
 | Bot username | `bot/config.py` → `BOT_USERNAME`, `src/config/brand.ts` → `botUsername` |
 | Mini app domeni | `bot/config.py` → `MINI_APP_URL` + BotFather `/setdomain` |
 | Admin Telegram ID | `bot/config.py` → `ADMIN_IDS` |
 | Aloqa raqami / email / Telegram | `src/config/brand.ts` va `bot/config.py` |
+| Dasturchi kontaktlari | `src/config/brand.ts` → `DEVELOPER` |
 | To'lov kartasi | `bot/config.py` → `CARD_NUMBER`, `CARD_OWNER` (keyin Firestore `settings/payment`) |
+
+> **Bot tokeni hech qachon git'ga tushmaydi.** U `bot/.env` da, `.gitignore`
+> esa uni to'sadi. `bot/config.py` faqat `os.environ` dan o'qiydi. Yangi
+> muhitda ishga tushirishdan oldin:
+>
+> ```
+> cp bot/.env.example bot/.env
+> ```
+>
+> va tokenni yozing. Token bo'lmasa bot tushunarli xabar bilan to'xtaydi.
 
 > Firebase web config (`apiKey` va h.k.) maxfiy emas — Firebase uni brauzerga
 > ataylab ochiq beradi, himoya Firestore Rules tomonida. Shuning uchun u env
@@ -38,17 +49,23 @@ domen ulanganda **faqat quyidagi joylar** o'zgaradi:
 Brend ranglari va shriftlari `src/styles.css` dagi CSS tokenlarida —
 komponentlarda hex yozilmagan, shuning uchun rang o'zgartirish bitta joyda.
 
-## 1. Bot tokenini almashtiring — MAJBURIY
+## 1. Bot tokeni
 
-Token git tarixida ochiq turibdi. `initData` imzosi aynan shu token bilan
-tekshirilgani uchun, uni bilgan odam **istalgan foydalanuvchi nomidan
-haqiqiy imzo yasay oladi** va butun himoya ma'nosini yo'qotadi.
+Token `bot/.env` da saqlanadi va git'ga tushmaydi. Uni almashtirish kerak
+bo'lsa:
 
 1. Telegram'da [@BotFather](https://t.me/BotFather) ni oching
-2. `/mybots` → botni tanlang → **API Token** → **Revoke current token**
-3. Yangi tokenni oling
+2. `/mybots` → botni tanlang → **API Token**
+3. Yangi tokenni `bot/.env` ga va Vercel env `BOT_TOKEN` ga yozing —
+   **ikkalasi bir xil bo'lishi shart**
 
-Yangi token ikki joyga kerak: `bot/config.py` va Vercel env o'zgaruvchisi.
+`initData` imzosi aynan shu token bilan tekshiriladi: token va Vercel'dagi
+qiymat mos kelmasa, mini app "Tizimga kirilmagan" xatosini beradi.
+
+> ⚠️ Eski `ecommercy_test_bot` tokeni git tarixida ochiq qolgan. O'sha bot
+> endi ishlatilmasa ham, @BotFather → **Revoke current token** bilan uni
+> bekor qilib qo'ying — aks holda tokenni topgan odam o'sha bot nomidan
+> ish yurita oladi.
 
 ---
 
@@ -116,7 +133,7 @@ Qoidalar nima qiladi:
 2. Mini appni ochib, buyurtma berib ko'ring — ishlashi kerak
 3. Shundan keyin Firestore Rules'ni yangilang
 4. Yana bir buyurtma berib tekshiring
-5. bot/config.py dagi tokenni yangilang va botni qayta ishga tushiring
+5. bot/.env dagi tokenni tekshiring va botni qayta ishga tushiring
 ```
 
 ---
@@ -145,5 +162,5 @@ Qoidalar nima qiladi:
   kechikadi. Buyurtmalar yo'qolmaydi (`notified` bayrog'i tufayli), lekin
   admin ularni faqat bot yoqilganda ko'radi. Doimiy ishlashi kerak bo'lsa,
   botni VPS yoki Railway'ga ko'chirish kerak.
-- **Bot tokeni hali ham `bot/config.py` da** — uni ham `.env` ga o'tkazish
-  tavsiya etiladi.
+- **Bot lokal ishlaydi** — hozircha VPS'ga ko'chirilmagan. Ko'chirilganda
+  `bot/.env` faylini ham birga olib o'tish kerak (u git'da yo'q).

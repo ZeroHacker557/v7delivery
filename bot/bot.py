@@ -31,6 +31,16 @@ import firebase_db as db
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
+# Token bot/.env dan keladi. Bo'lmasa aiogram tushunarsiz xato beradi —
+# shuning uchun oldindan aniq xabar bilan to'xtatamiz.
+if not BOT_TOKEN:
+    raise SystemExit(
+        "BOT_TOKEN topilmadi.\n"
+        "bot/.env faylini yarating va tokenni yozing:\n"
+        "    cp bot/.env.example bot/.env\n"
+        "Token @BotFather dan olinadi."
+    )
+
 bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode="HTML"))
 dp  = Dispatcher(storage=MemoryStorage())
 dp.include_router(admin_router)

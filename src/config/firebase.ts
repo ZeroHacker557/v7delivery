@@ -15,11 +15,11 @@
  * o'qiydi va katalog bo'sh ko'rinadi.
  */
 export const firebaseConfig = {
-  apiKey: 'AIzaSyB-JENf9xTOJcEF81-6KJxb0HnCyLmjkc0',
-  authDomain: 'ecommercytest.firebaseapp.com',
-  projectId: 'ecommercytest',
-  storageBucket: 'ecommercytest.firebasestorage.app',
-  messagingSenderId: '107932467075',
-  appId: '1:107932467075:web:1d2740db24de18661c00b6',
-  measurementId: 'G-TFYZD2LLN0',
+  apiKey: 'AIzaSyBrhJVW619BDWoPYrIVhEr6M5M8R5KvtmA',
+  authDomain: 'v7-savdo.firebaseapp.com',
+  projectId: 'v7-savdo',
+  storageBucket: 'v7-savdo.firebasestorage.app',
+  messagingSenderId: '307522319870',
+  appId: '1:307522319870:web:dd8d9187dbdc9c4f1fbcaf',
+  measurementId: 'G-VLWJ5BF9P5',
 }
