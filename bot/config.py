@@ -37,7 +37,7 @@ _load_env()
 # Token .env dan keladi. Bo'sh bo'lsa bot ishga tushmaydi (bot.py tekshiradi).
 BOT_TOKEN    = os.environ.get("BOT_TOKEN", "")
 BOT_USERNAME = "v7buyurtma_bot"
-ADMIN_IDS    = {7692182035}   # Egalar — panel orqali o'chirib bo'lmaydi
+ADMIN_IDS    = {7203124812}   # Egalar — panel orqali o'chirib bo'lmaydi
 MINI_APP_URL = "https://v7delivery.vercel.app"
 
 # ── Kompaniya aloqa ma'lumotlari (bot javoblarida ko'rinadi) ──
