@@ -252,7 +252,12 @@ export const ru: Record<TranslationKey, string> = {
   'address.saved': 'Адрес сохранён!',
   'address.deleted': 'Адрес удалён',
   'address.fillAll': 'Заполните все поля и отметьте место на карте',
-  'address.locationFailed': 'Не удалось определить местоположение',
+  'address.myLocation': 'Где я',
+  'address.locationFailed': 'Не удалось определить местоположение. Отметьте на карте вручную.',
+  'address.locationDenied':
+    'Доступ к геолокации запрещён. Разрешите его в настройках Telegram или отметьте место на карте.',
+  'address.locationTimeout':
+    'Местоположение не определилось — возможно, слабый сигнал. Попробуйте снова или отметьте на карте.',
 
   // ── Уведомления ──
   'notifications.title': 'Уведомления',

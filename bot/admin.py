@@ -704,8 +704,18 @@ async def process_color(message: Message, state: FSMContext):
 ASK_STOCK = "9\ufe0f\u20e3 Omborda nechta bor? (faqat raqam)\nMasalan: <code>25</code>"
 ASK_IMAGE = (
     "\U0001f51f Mahsulot rasmini yuboring \u2014 bu asosiy rasm bo'ladi.\n\n"
-    "<i>Rasm sifatida ham, fayl sifatida ham yuborsangiz bo'ladi. "
-    "Fayl sifatida yuborsangiz Telegram uni siqmaydi va sifat yaxshiroq saqlanadi.</i>"
+    "\u26a0\ufe0f <b>Fon shaffof (PNG) bo'lsa \u2014 albatta FAYL qilib yuboring:</b>\n"
+    "\U0001f4ce \u2192 <b>Fayl</b> (Telegram Desktop'da \u00abRasmni siqish\u00bb belgisini olib tashlang).\n\n"
+    "<i>Foto sifatida yuborilsa Telegram rasmni JPEG'ga siqadi va shaffof "
+    "fonni OQ rangga aylantiradi \u2014 buni keyin tiklab bo'lmaydi.</i>"
+)
+
+# Foto sifatida kelgan rasmda shaffoflik allaqachon yo'qolgan bo'ladi.
+COMPRESSED_WARNING = (
+    "\u26a0\ufe0f <b>Diqqat:</b> rasm <b>foto</b> sifatida yuborildi. "
+    "Telegram uni siqdi, shuning uchun shaffof fon <b>oq</b> bo'lib qoldi.\n\n"
+    "Shaffofligi saqlanishi uchun o'sha rasmni <b>\U0001f4ce \u2192 Fayl</b> "
+    "qilib qayta yuboring."
 )
 
 
@@ -813,6 +823,10 @@ async def _accept_image(message: Message, state: FSMContext, bot: Bot):
     images.append(filename)
     await state.update_data(images=images)
 
+    # Foto sifatida kelgan bo'lsa shaffoflik yo'qolgan — jim o'tib ketmaymiz
+    if message.photo:
+        await message.answer(COMPRESSED_WARNING, parse_mode="HTML")
+
     await state.set_state(AddProduct.more_images)
     await message.answer(
         f"\u2705 Rasm saqlandi! ({len(images)} ta rasm)\n\nYana rasm qo'shmoqchimisiz?",
@@ -859,7 +873,10 @@ async def cb_more_images(callback: CallbackQuery, state: FSMContext):
         return
     await state.set_state(AddProduct.image)
     await safe_edit_msg(callback, 
-        "\U0001f4f7 Keyingi rasmni yuboring (rasm yoki fayl sifatida):"
+        "\U0001f4f7 Keyingi rasmni yuboring.\n\n"
+        "\u26a0\ufe0f Fon shaffof bo'lsa \u2014 \U0001f4ce \u2192 <b>Fayl</b> qilib yuboring, "
+        "aks holda fon oq bo'lib qoladi.",
+        parse_mode="HTML",
     )
     await callback.answer()
 
@@ -1379,7 +1396,9 @@ async def cb_add_image_start(callback: CallbackQuery, state: FSMContext):
     await state.update_data(image_prod_id=prod_id)
     await state.set_state(EditProduct.image)
     await callback.message.answer(
-        "\U0001f4f7 Yangi rasmni yuboring \u2014 rasm yoki fayl sifatida.\n\n"
+        "\U0001f4f7 Yangi rasmni yuboring.\n\n"
+        "\u26a0\ufe0f Fon shaffof (PNG) bo'lsa \u2014 \U0001f4ce \u2192 <b>Fayl</b> qilib "
+        "yuboring, aks holda Telegram uni siqib fonni oq qilib qo'yadi.\n\n"
         "<i>Bekor qilish uchun /cancel</i>",
         parse_mode="HTML",
     )
@@ -1394,6 +1413,9 @@ async def process_new_image(message: Message, state: FSMContext, bot: Bot):
     if message.document and not _looks_like_image(message):
         await message.answer("Bu rasm fayli emas. JPG, PNG yoki WEBP yuboring.")
         return
+
+    if message.photo:
+        await message.answer(COMPRESSED_WARNING, parse_mode="HTML")
 
     data = await state.get_data()
     prod_id = data.get("image_prod_id")

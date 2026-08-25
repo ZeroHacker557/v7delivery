@@ -20,6 +20,23 @@ export type TelegramUser = {
 
 type SafeAreaInset = { top: number; bottom: number; left: number; right: number }
 
+/** Telegram LocationManager qaytaradigan lokatsiya (Bot API 8.0+). */
+type TelegramLocation = {
+  latitude: number
+  longitude: number
+  horizontal_accuracy?: number | null
+}
+
+interface TelegramLocationManager {
+  isInited: boolean
+  isLocationAvailable: boolean
+  isAccessRequested: boolean
+  isAccessGranted: boolean
+  init: (callback?: () => void) => void
+  getLocation: (callback: (location: TelegramLocation | null) => void) => void
+  openSettings: () => void
+}
+
 interface TelegramWebApp {
   initData: string
   initDataUnsafe: {
@@ -76,6 +93,9 @@ interface TelegramWebApp {
   disableVerticalSwipes?: () => void
   onEvent?: (event: string, handler: () => void) => void
   offEvent?: (event: string, handler: () => void) => void
+  isVersionAtLeast?: (version: string) => boolean
+  /** Bot API 8.0+ da mavjud; eski mijozlarda undefined. */
+  LocationManager?: TelegramLocationManager
 }
 
 // ── Asosiy kirish nuqtalari ──────────────────────────────────
@@ -262,4 +282,88 @@ export function showAlert(message: string) {
   const tg = getTelegram()
   if (tg?.showAlert) tg.showAlert(message)
   else window.alert(message)
+}
+
+
+// ── Lokatsiya ────────────────────────────────────────────────
+
+export type LocationResult =
+  | { ok: true; lat: number; lng: number }
+  | { ok: false; reason: 'denied' | 'timeout' | 'unavailable'; openSettings?: () => void }
+
+/** Hech qanday holatda cheksiz kutib qolmasligi uchun umumiy chegara. */
+const LOCATION_TIMEOUT_MS = 12_000
+
+function withTimeout(promise: Promise<LocationResult>): Promise<LocationResult> {
+  return Promise.race([
+    promise,
+    new Promise<LocationResult>((resolve) =>
+      setTimeout(() => resolve({ ok: false, reason: 'timeout' }), LOCATION_TIMEOUT_MS),
+    ),
+  ])
+}
+
+/**
+ * Foydalanuvchining joriy joylashuvi.
+ *
+ * Avval Telegram'ning LocationManager'i (Bot API 8.0+) — mini app ichida
+ * ishonchli ishlaydigan yagona yo'l. Telegram'ning WebView'i brauzer
+ * Geolocation API'sini ko'pincha butunlay bloklaydi, shuning uchun
+ * navigator.geolocation faqat zaxira sifatida (Telegram tashqarisida yoki
+ * eski mijozlarda) qoladi.
+ *
+ * Hech qachon xato tashlamaydi — natija doim tushunarli sabab bilan qaytadi.
+ */
+export function requestLocation(): Promise<LocationResult> {
+  const tg = getTelegram()
+  const lm = tg?.LocationManager
+
+  if (lm && tg?.isVersionAtLeast?.('8.0')) {
+    return withTimeout(
+      new Promise<LocationResult>((resolve) => {
+        const read = () => {
+          if (!lm.isLocationAvailable) {
+            return resolve({ ok: false, reason: 'unavailable' })
+          }
+          lm.getLocation((loc) => {
+            if (loc) return resolve({ ok: true, lat: loc.latitude, lng: loc.longitude })
+            // Ruxsat bir marta so'ralib rad etilgan bo'lsa Telegram qayta
+            // so'ramaydi — yagona yo'l sozlamalar oynasi.
+            const blocked = lm.isAccessRequested && !lm.isAccessGranted
+            resolve({
+              ok: false,
+              reason: blocked ? 'denied' : 'unavailable',
+              openSettings: blocked ? () => lm.openSettings() : undefined,
+            })
+          })
+        }
+        if (lm.isInited) read()
+        else lm.init(read)
+      }),
+    )
+  }
+
+  return withTimeout(
+    new Promise<LocationResult>((resolve) => {
+      if (!navigator.geolocation) {
+        return resolve({ ok: false, reason: 'unavailable' })
+      }
+      navigator.geolocation.getCurrentPosition(
+        (pos) => resolve({ ok: true, lat: pos.coords.latitude, lng: pos.coords.longitude }),
+        (err) =>
+          resolve({
+            ok: false,
+            reason:
+              err.code === err.PERMISSION_DENIED
+                ? 'denied'
+                : err.code === err.TIMEOUT
+                  ? 'timeout'
+                  : 'unavailable',
+          }),
+        // timeout ATAYLAB berilgan: standart qiymati Infinity va javob
+        // kelmasa tugma abadiy kutib qoladi (F-xato).
+        { enableHighAccuracy: true, timeout: 10_000, maximumAge: 60_000 },
+      )
+    }),
+  )
 }

@@ -258,7 +258,12 @@ export const uz = {
   'address.saved': 'Manzil saqlandi!',
   'address.deleted': "Manzil o'chirildi",
   'address.fillAll': "Iltimos, barcha maydonlarni to'ldiring va xaritadan joy tanlang",
-  'address.locationFailed': "Lokatsiyani aniqlab bo'lmadi",
+  'address.myLocation': 'Qayerdaman',
+  'address.locationFailed': "Lokatsiyani aniqlab bo'lmadi. Xaritadan qo'lda belgilang.",
+  'address.locationDenied':
+    "Lokatsiyaga ruxsat berilmagan. Telegram sozlamalaridan ruxsat bering yoki xaritadan qo'lda belgilang.",
+  'address.locationTimeout':
+    "Lokatsiya aniqlanmadi — signal zaif bo'lishi mumkin. Qayta urinib ko'ring yoki xaritadan belgilang.",
 
   // ── Bildirishnomalar ──
   'notifications.title': 'Bildirishnomalar',

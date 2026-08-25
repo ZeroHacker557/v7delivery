@@ -136,8 +136,13 @@ export function ProductDetailPage({
           * shu qutiga to'liq sig'diradi.
           */}
         <div
-          className="relative mx-auto h-[280px] w-full overflow-hidden rounded-2xl sm:h-[380px]"
-          style={{ background: 'var(--surface-2)', opacity: soldOut ? 0.55 : 1 }}
+          className="relative mx-auto h-[280px] w-full overflow-hidden rounded-2xl border sm:h-[380px]"
+          style={{
+            // Shaffof PNG'lar uchun fon yuzaning o'zi; ramka chegara bilan beriladi
+            background: 'var(--surface)',
+            borderColor: 'var(--line)',
+            opacity: soldOut ? 0.55 : 1,
+          }}
         >
           {images[activeImage] ? (
             <img

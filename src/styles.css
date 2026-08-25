@@ -476,12 +476,19 @@ a { color: inherit; text-decoration: none; }
  * qolmaydi va rasm o'zining asl o'lchamida butun ekranni egallaydi.
  * padding-top usuli hamma joyda ishlaydi.
  */
+/*
+ * Fon kartaning O'Z rangi — `--surface-2` emas.
+ * Mahsulot rasmlari shaffof PNG bo'lishi mumkin; boshqa tusdagi quti
+ * qo'yilsa, shaffof soha kulrang to'rtburchak bo'lib ko'rinadi va
+ * qorong'i temada bu ayniqsa bilinadi. Kartaning foni bilan bir xil
+ * bo'lganda rasm kartada "suzib" turadi.
+ */
 .product-card-image {
   position: relative;
   width: 100%;
   padding-top: 100%;
   overflow: hidden;
-  background: var(--surface-2);
+  background: var(--surface);
   border-bottom: 1px solid var(--line-soft);
 }
 .product-card-image.sold-out { opacity: 0.45; }

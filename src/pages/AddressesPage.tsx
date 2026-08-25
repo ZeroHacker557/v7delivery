@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { ChevronLeft, MapPin, Plus, Trash2 } from 'lucide-react'
+import { ChevronLeft, LocateFixed, Loader2, MapPin, Plus, Trash2 } from 'lucide-react'
 import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from 'react-leaflet'
 import L from 'leaflet'
 import icon from 'leaflet/dist/images/marker-icon.png'
 import iconShadow from 'leaflet/dist/images/marker-shadow.png'
 import { updateUserProfile } from '../lib/firebase'
 import { auth } from '../lib/auth'
-import { hapticFeedback, hapticSuccess } from '../utils/telegram'
+import { hapticFeedback, hapticSuccess, requestLocation } from '../utils/telegram'
 import { useT } from '../i18n'
 import type { Address, UserProfile } from '../types/domain'
 
@@ -54,18 +54,32 @@ export function AddressesPage({ profile, onBack, onNotify }: Props) {
   const [newFullAddress, setNewFullAddress] = useState('')
   const [mapCenter, setMapCenter] = useState(TASHKENT)
   const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null)
+  const [locating, setLocating] = useState(false)
 
-  const handleCurrentLocation = () => {
-    if (!navigator.geolocation) return
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const coords = { lat: pos.coords.latitude, lng: pos.coords.longitude }
+  const handleCurrentLocation = async () => {
+    if (locating) return
+    setLocating(true)
+    try {
+      const result = await requestLocation()
+      if (result.ok) {
+        const coords = { lat: result.lat, lng: result.lng }
         setMapCenter(coords)
         setLocation(coords)
         hapticFeedback('medium')
-      },
-      () => onNotify(t('address.locationFailed')),
-    )
+        return
+      }
+      if (result.reason === 'denied') {
+        onNotify(t('address.locationDenied'))
+        // Telegram rad etilgan ruxsatni qayta so'ramaydi — sozlamalarni ochamiz
+        result.openSettings?.()
+      } else if (result.reason === 'timeout') {
+        onNotify(t('address.locationTimeout'))
+      } else {
+        onNotify(t('address.locationFailed'))
+      }
+    } finally {
+      setLocating(false)
+    }
   }
 
   const handleSaveAddress = async (e: React.FormEvent) => {
@@ -191,11 +205,17 @@ export function AddressesPage({ profile, onBack, onNotify }: Props) {
                 <button
                   type="button"
                   onClick={handleCurrentLocation}
-                  className="absolute bottom-4 right-4 z-[400] grid size-12 place-items-center rounded-xl transition active:scale-95"
+                  disabled={locating}
+                  className="absolute bottom-4 right-4 z-[400] grid size-12 place-items-center rounded-xl transition active:scale-95 disabled:opacity-70"
                   style={{ background: 'var(--surface)', color: 'var(--brand)', boxShadow: 'var(--shadow-md)' }}
-                  aria-label={t('address.pickOnMap')}
+                  aria-label={t('address.myLocation')}
+                  aria-busy={locating}
                 >
-                  <MapPin size={22} />
+                  {locating ? (
+                    <Loader2 size={22} className="animate-spin" />
+                  ) : (
+                    <LocateFixed size={22} />
+                  )}
                 </button>
               </div>
               <p className="mt-2 text-center text-xs" style={{ color: 'var(--faint)' }}>{t('address.mapHint')}</p>

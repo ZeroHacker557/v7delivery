@@ -11,7 +11,7 @@ export function OrderImages({ products }: { products: Item[] }) {
         <div
           key={item.cartKey ?? `${item.product.id}-${i}`}
           className="relative size-14 shrink-0 overflow-hidden rounded-xl border sm:size-16"
-          style={{ borderColor: 'var(--line)', background: 'var(--surface-2)' }}
+          style={{ borderColor: 'var(--line)', background: 'var(--surface)' }}
         >
           {item.product.images?.[0] ? (
             <img
